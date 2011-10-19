@@ -1,0 +1,25 @@
+#Software: Microsoft Internet Information Services 5.0
+#Version: 1.0
+#Date: 2011-08-26 00:00:07
+#Fields: date time c-ip cs-username s-ip s-port cs-method cs-uri-stem cs-uri-query sc-status cs(User-Agent) 
+2011-08-26 00:00:07 61.135.248.228 - 67.132.106.18 80 GET /index.ihtml E:\wwwroot\BCgratis\HighCountryRepWomen\index.ihtml+140 200 Mozilla/5.0+(compatible;+YodaoBot/1.0;+http://www.yodao.com/help/webmaster/spider/;+)
+2011-08-26 00:12:43 95.108.217.252 - 67.132.106.18 80 GET /robots.txt - 404 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots)
+2011-08-26 02:21:00 66.249.72.177 - 67.132.106.18 80 GET /robots.txt - 404 Mozilla/5.0+(compatible;+Googlebot/2.1;++http://www.google.com/bot.html)
+2011-08-26 02:21:05 66.249.72.177 - 67.132.106.18 80 GET /bccalendar.ihtml month=12&year=1996E:\wwwroot\BCgratis\HighCountryRepWomen\bccalendar.ihtml+140 200 Mozilla/5.0+(compatible;+Googlebot/2.1;++http://www.google.com/bot.html)
+2011-08-26 02:28:04 123.125.71.32 - 67.132.106.18 80 GET /robots.txt - 404 Baiduspider+(+http://www.baidu.com/search/spider.htm)
+2011-08-26 03:06:12 82.165.37.69 - 67.132.106.18 80 GET /index.ihtml E:\wwwroot\BCgratis\HighCountryRepWomen\index.ihtml+140 200 Mozilla/5.0+(compatible;+IPTCBOT;+
+2011-08-26 03:43:47 61.135.248.194 - 67.132.106.18 80 GET /index.ihtml E:\wwwroot\BCgratis\HighCountryRepWomen\index.ihtml+140 200 Mozilla/5.0+(compatible;+YodaoBot/1.0;+http://www.yodao.com/help/webmaster/spider/;+)
+2011-08-26 04:59:05 95.108.217.252 - 67.132.106.18 80 GET /index.ihtml E:\wwwroot\BCgratis\HighCountryRepWomen\index.ihtml+140 200 Mozilla/5.0+(compatible;+YandexBot/3.0;++http://yandex.com/bots)
+2011-08-26 08:02:37 119.63.196.53 - 67.132.106.18 80 GET /robots.txt - 404 Baiduspider+(+http://www.baidu.com/search/spider.htm)
+2011-08-26 13:02:17 49.212.62.154 - 67.132.106.18 80 GET /w00tw00t.at.blackhats.romanian.anti-sec:) - 404 ZmEu
+2011-08-26 13:02:17 49.212.62.154 - 67.132.106.18 80 GET /phpMyAdmin/scripts/setup.php - 404 ZmEu
+2011-08-26 13:02:18 49.212.62.154 - 67.132.106.18 80 GET /phpmyadmin/scripts/setup.php - 404 ZmEu
+2011-08-26 13:02:19 49.212.62.154 - 67.132.106.18 80 GET /pma/scripts/setup.php - 404 ZmEu
+2011-08-26 13:02:22 49.212.62.154 - 67.132.106.18 80 GET /myadmin/scripts/setup.php - 404 ZmEu
+2011-08-26 13:02:22 49.212.62.154 - 67.132.106.18 80 GET /MyAdmin/scripts/setup.php - 404 ZmEu
+2011-08-26 14:44:33 82.165.37.69 - 67.132.106.18 80 GET /index.ihtml E:\wwwroot\BCgratis\HighCountryRepWomen\index.ihtml+140 200 Mozilla/5.0+(compatible;+IPTCBOT;+
+2011-08-26 18:29:28 194.79.22.142 - 67.132.106.18 80 GET /w00tw00t.at.blackhats.romanian.anti-sec:) - 404 ZmEu
+2011-08-26 18:29:28 194.79.22.142 - 67.132.106.18 80 GET /phpMyAdmin/scripts/setup.php - 404 ZmEu
+2011-08-26 18:29:32 194.79.22.142 - 67.132.106.18 80 GET /pma/scripts/setup.php - 404 ZmEu
+2011-08-26 18:29:32 194.79.22.142 - 67.132.106.18 80 GET /myadmin/scripts/setup.php - 404 ZmEu
+2011-08-26 18:29:34 194.79.22.142 - 67.132.106.18 80 GET /MyAdmin/scripts/setup.php - 404 ZmEu

@@ -1,0 +1,5 @@
+#Software: Microsoft Internet Information Services 5.0
+#Version: 1.0
+#Date: 2011-08-20 19:41:25
+#Fields: date time c-ip cs-username s-ip s-port cs-method cs-uri-stem cs-uri-query sc-status cs(User-Agent) 
+2011-08-20 19:41:25 216.40.235.219 - 67.132.106.55 80 GET / - 404 Python-urllib/2.4

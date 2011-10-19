@@ -1,0 +1,5 @@
+#Software: Microsoft Internet Information Services 5.0
+#Version: 1.0
+#Date: 2011-08-24 16:12:11
+#Fields: date time c-ip cs-username s-ip s-port cs-method cs-uri-stem cs-uri-query sc-status cs(User-Agent) 
+2011-08-24 16:12:11 121.141.172.40 - 67.132.106.17 80 CONNECT - - 501 -
