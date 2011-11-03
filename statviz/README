@@ -1,0 +1,13 @@
+Preprocessing:
+
+apache-access.log (44k lines) -> apache-access-clean.log (14k lines):
+	cat apache-access.log.txt | grep -v Googlebot | grep -v Slurp | grep -v Baidu | grep -v 'announce?info' | grep -v robots.txt | grep -v bittorn | grep -v SEARCH | grep -v '.css' | grep -v '.png'  | grep -v 'internal dummy conn' | grep -v '?\xc1\x07\xaf' | grep -v wantsfly | grep -v proxyjudge | grep -v wii | grep -v judge.php | grep -v www.google.com | grep -v favicon.ico | grep -v hellabs | grep -v w00tw00t | grep -v adsweet | grep -v infodownload | grep -v 216.245 | grep -v quickebuy | grep -v piggmail | grep -v 88.80 | grep -v yahoo.com | grep -v 365track | grep -v judge123 | grep -v mysql | grep -v php | grep -v websql | grep -v cship | grep -v allrequestsallowed > apache-access-clean.log
+
+apache-access-clean.log (14k lines) -> apache-access-clean-sorted.log (14k lines, sorted):
+	for((i=1; i<=`wc -l apache-access-clean.log | awk '{print $1}'`; i++)); do LINE="`head -$i apache-access-clean.log | tail -1`"; TEXT="`echo $LINE | awk '{print $4}' | sed 's/\[//' | sed 's/\//:/g' | sed 's/:/ /' | sed 's/:/ /' | sed 's/:/ /'`"; RANK=`date --date "$TEXT" "+%Y%m%d%H%M%S"`; echo $RANK $LINE; done > tosort.txt
+	sort tosort.txt > sorted.txt
+	sed 's/[^ ]* //' sorted.txt > apache-access-clean-sorted.log
+
+To run statviz:
+
+statviz --config <file>
