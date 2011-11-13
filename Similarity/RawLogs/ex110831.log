@@ -1,0 +1,6 @@
+#Software: Microsoft Internet Information Services 5.0
+#Version: 1.0
+#Date: 2011-08-31 20:54:19
+#Fields: date time c-ip cs-username s-ip s-port cs-method cs-uri-stem cs-uri-query sc-status cs(User-Agent) 
+2011-08-31 20:54:19 74.117.237.218 - 67.132.106.55 80 GET /cgi-bin/if.cgi - 404 -
+2011-08-31 20:54:19 74.117.237.218 - 67.132.106.55 80 GET /cgi-bin/if.cgi - 404 -

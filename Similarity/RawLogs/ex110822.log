@@ -1,0 +1,7 @@
+#Software: Microsoft Internet Information Services 5.0
+#Version: 1.0
+#Date: 2011-08-22 22:04:22
+#Fields: date time c-ip cs-username s-ip s-port cs-method cs-uri-stem cs-uri-query sc-status cs(User-Agent) 
+2011-08-22 22:04:22 61.135.249.245 - 67.132.106.18 80 GET /index.ihtml E:\wwwroot\BCgratis\HighCountryRepWomen\index.ihtml+140 200 Mozilla/5.0+(compatible;+YodaoBot/1.0;+http://www.yodao.com/help/webmaster/spider/;+)
+2011-08-22 22:17:24 66.249.72.116 - 67.132.106.18 80 GET /bccalday.ihtml day=17&month=5&year=2025E:\wwwroot\BCgratis\HighCountryRepWomen\bccalday.ihtml+140 200 Mozilla/5.0+(compatible;+Googlebot/2.1;++http://www.google.com/bot.html)
+2011-08-22 23:47:05 66.249.72.116 - 67.132.106.18 80 GET /bccalday.ihtml day=16&month=5&year=2025 200 Mozilla/5.0+(compatible;+Googlebot/2.1;++http://www.google.com/bot.html)
