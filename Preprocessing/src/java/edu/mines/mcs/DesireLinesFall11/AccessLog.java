@@ -306,22 +306,36 @@ public class AccessLog {
 		
 		return queryParams;
 	}
+	
+	public static void printUsage() {
+		System.out.println("Usage: Preprocessing.jar -host vail|comrade|summitcove -input [INPUT FILE] -vectors [OUTPUT VECTOR FILE] -index [OUTPUT INDEX FILE]");
+		System.exit(1);
+	}
 
 	public static void main(String[] args) {
 		
-		String[] iisLogs = {"ex031008.log", "ex110820.log", "ex110826.log",
-							"ex110904.log", "ex110908.log", "ex111002.log",
-							"ex111009.log", "ex110817.log", "ex110822.log",
-							"ex110829.log", "ex110905.log", "ex110910.log",
-							"ex111007.log", "ex111010.log", "ex110818.log",
-							"ex110824.log", "ex110831.log", "ex110906.log",
-							"ex110918.log", "ex111008.log", "ex111011.log"};
-		for(String logName: iisLogs) {			
-			String fileName = logName.split("\\.")[0];
-
-			System.out.println(fileName);
+		Hashtable<String, String> params = new Hashtable<String, String>();
+		
+		if(args.length == 0) {
+			printUsage();
+		}
+		
+		for(int i=0; i<args.length; i++) {
+			String thisArg = args[i];
+			if(thisArg.equals("-host") || thisArg.equals("-input") || thisArg.equals("-vectors") || thisArg.equals("-index")) {
+				params.put(thisArg.substring(1), args[++i]);
+			} else {
+				printUsage();
+			}
+		}
+		
+		if(params.size() != 4) {
+			printUsage();
+		}
+		
+		if(params.get("host").equals("vail")) {
 			
-			AccessLog iisLog = AccessLog.forIISHost("../data/raw/" + fileName + ".log", new SessionHost(){
+			AccessLog iisLog = AccessLog.forIISHost(params.get("input"), new SessionHost(){
 				public HostQuery newQuery(String queryText) {
 					final String queryString = queryText; //final makes it available to HostQuery
 					final Hashtable<String, String> queryTable = parseQueryString(queryText);
@@ -380,119 +394,123 @@ public class AccessLog {
 					return new VailCoachQuery(queryString, queryTable);
 				}
 			});
-			iisLog.saveAsIdRows("../data/page_ids/breian_output/" + fileName + ".vectors", "../data/page_ids/breian_output/" + fileName + ".index");
-		
-		} //end for each file name
-		System.out.println("IIS Parsing Complete");
-		
-		
-//		AccessLog comradeApacheLog = AccessLog.forApacheHost("../data/apache_logs/apache-access.log", new SessionHost(){
-//			public HostQuery newQuery(String queryText) {
-//				final String queryString = queryText; //final makes it available to HostQuery
-//				final Hashtable<String, String> queryTable = parseQueryString(queryText);
-//				
-//				class ComradeQuery implements HostQuery {
-//					
-//					private String queryString;
-//					private Hashtable<String, String> queryTable;
-//					
-//					public ComradeQuery(String queryString, Hashtable<String, String> queryTable) {
-//						this.queryString = queryString;
-//						this.queryTable = queryTable;
-//					}
-//					
-//					public String toString() {
-//						return queryString;
-//					}
-//					
-//					public int hashCode() {
-//						return 31 + ((queryString == null) ? 0 : queryString.hashCode());
-//					}
-//					
-//					/**
-//					 * Nothing to distinguish queries.
-//					 */
-//					public boolean equals(Object obj) {
-//						if (this == obj) return true;
-//						if (obj == null) return false;
-//						if (getClass() != obj.getClass()) return false;
-//						
-//						return true;
-//					}
-//					
-//					/**
-//					 * Nothing to distinguish queries.
-//					 */
-//					public int compareTo(HostQuery otherQuery) {
-//						return 0;
-//					}
-//				}
-//				
-//				return new ComradeQuery(queryString, queryTable);
-//			}
-//		});
-//		comradeApacheLog.saveAsIdRows("../data/page_ids/zach_output/apache-access.vectors", "../data/page_ids/zach_output/apache-access.index");
-		
-//		AccessLog summitApacheLog = AccessLog.forApacheHost("../data/apache_logs/summitcove-access.log", new SessionHost(){
-//			public HostQuery newQuery(String queryText) {
-//				final String queryString = queryText; //final makes it available to HostQuery
-//				final Hashtable<String, String> queryTable = parseQueryString(queryText);
-//				
-//				class SummitcoveQuery implements HostQuery {
-//					
-//					private String queryString;
-//					private Hashtable<String, String> queryTable;
-//					
-//					public SummitcoveQuery(String queryString, Hashtable<String, String> queryTable) {
-//						this.queryString = queryString;
-//						this.queryTable = queryTable;
-//					}
-//					
-//					public String toString() {
-//						return queryString;
-//					}
-//					
-//					public int hashCode() {
-//						return 31 + ((queryString == null) ? 0 : queryString.hashCode());
-//					}
-//					
-//					/**
-//					 * The only feature that distinguishes queries is the PropertyID parameter.
-//					 */
-//					public boolean equals(Object obj) {
-//						if (this == obj) return true;
-//						if (obj == null) return false;
-//						if (getClass() != obj.getClass()) return false;
-//						
-//						SummitcoveQuery other = (SummitcoveQuery) obj;
-//						
-//						String thisId = queryTable.get("PropertyID");
-//						if(thisId != null) {
-//							String otherId = other.queryTable.get("PropertyID");
-//							if(otherId != null) {
-//								return thisId.equals(otherId);
-//							}
-//						}
-//						return true;
-//					}
-//					
-//					/**
-//					 * The only feature that distinguishes queries is the PropertyID parameter.
-//					 */
-//					public int compareTo(HostQuery otherQuery) {
-//						String thisId = queryTable.get("PropertyID");
-//						if(thisId != null) {
-//							String otherId = ((SummitcoveQuery) otherQuery).queryTable.get("PropertyID");
-//							if(otherId != null) return thisId.compareTo(otherId); //lexicographic comparison
-//						}
-//						return 0; //if one query or the other lacks a PropertyID parameter, assume they're the same.
-//					}
-//				}
-//				
-//				return new SummitcoveQuery(queryString, queryTable);
-//			}
-//		});
-//		summitApacheLog.saveAsIdRows("../data/page_ids/dan_output/summitcove-access.vectors", "../data/page_ids/dan_output/summitcove-access.index");
-		
+			
+			iisLog.saveAsIdRows(params.get("vectors"), params.get("index"));
+			
+		} else if(params.get("host").equals("comrade")) {
+			
+			AccessLog comradeApacheLog = AccessLog.forApacheHost(params.get("input"), new SessionHost(){
+				public HostQuery newQuery(String queryText) {
+					final String queryString = queryText; //final makes it available to HostQuery
+					final Hashtable<String, String> queryTable = parseQueryString(queryText);
+					
+					class ComradeQuery implements HostQuery {
+						
+						private String queryString;
+						private Hashtable<String, String> queryTable;
+						
+						public ComradeQuery(String queryString, Hashtable<String, String> queryTable) {
+							this.queryString = queryString;
+							this.queryTable = queryTable;
+						}
+						
+						public String toString() {
+							return queryString;
+						}
+						
+						public int hashCode() {
+							return 31 + ((queryString == null) ? 0 : queryString.hashCode());
+						}
+						
+						/**
+						 * Nothing to distinguish queries.
+						 */
+						public boolean equals(Object obj) {
+							if (this == obj) return true;
+							if (obj == null) return false;
+							if (getClass() != obj.getClass()) return false;
+							
+							return true;
+						}
+						
+						/**
+						 * Nothing to distinguish queries.
+						 */
+						public int compareTo(HostQuery otherQuery) {
+							return 0;
+						}
+					}
+					
+					return new ComradeQuery(queryString, queryTable);
+				}
+			});
+			
+			comradeApacheLog.saveAsIdRows(params.get("vectors"), params.get("index"));
+			
+		} else if(params.get("host").equals("summitcove")) {
+			
+			AccessLog summitApacheLog = AccessLog.forApacheHost(params.get("input"), new SessionHost(){
+			public HostQuery newQuery(String queryText) {
+				final String queryString = queryText; //final makes it available to HostQuery
+				final Hashtable<String, String> queryTable = parseQueryString(queryText);
+				
+				class SummitcoveQuery implements HostQuery {
+					
+					private String queryString;
+					private Hashtable<String, String> queryTable;
+					
+					public SummitcoveQuery(String queryString, Hashtable<String, String> queryTable) {
+						this.queryString = queryString;
+						this.queryTable = queryTable;
+					}
+					
+					public String toString() {
+						return queryString;
+					}
+					
+					public int hashCode() {
+						return 31 + ((queryString == null) ? 0 : queryString.hashCode());
+					}
+					
+					/**
+					 * The only feature that distinguishes queries is the PropertyID parameter.
+					 */
+					public boolean equals(Object obj) {
+						if (this == obj) return true;
+						if (obj == null) return false;
+						if (getClass() != obj.getClass()) return false;
+						
+						SummitcoveQuery other = (SummitcoveQuery) obj;
+						
+						String thisId = queryTable.get("PropertyID");
+						if(thisId != null) {
+							String otherId = other.queryTable.get("PropertyID");
+							if(otherId != null) {
+								return thisId.equals(otherId);
+							}
+						}
+						return true;
+					}
+					
+					/**
+					 * The only feature that distinguishes queries is the PropertyID parameter.
+					 */
+					public int compareTo(HostQuery otherQuery) {
+							String thisId = queryTable.get("PropertyID");
+							if(thisId != null) {
+								String otherId = ((SummitcoveQuery) otherQuery).queryTable.get("PropertyID");
+								if(otherId != null) return thisId.compareTo(otherId); //lexicographic comparison
+							}
+							return 0; //if one query or the other lacks a PropertyID parameter, assume they're the same.
+						}
+					}
+					
+					return new SummitcoveQuery(queryString, queryTable);
+				}
+			});
+			
+			summitApacheLog.saveAsIdRows(params.get("vectors"), params.get("index"));
+			
+		}
 	}
 }
