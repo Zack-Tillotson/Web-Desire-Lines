@@ -1,4 +1,0 @@
-INDEX VERSION 1.126+/home/daniel/Workspace/Java/Eclipse/UI Design/Web-Desire-Lines/.metadata/.plugins/org.eclipse.jdt.core
-3055419419.index
-3251987668.index
-1470502612.index
