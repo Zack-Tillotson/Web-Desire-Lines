@@ -2,6 +2,9 @@ package edu.mines.mcs.DesireLinesFall11;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
@@ -13,20 +16,26 @@ import ExtractLogs.DistanceMetric;
 public class DistanceMatrix {
 	
 	Double[][] distances;
+	Distance metric;
 	
-	public DistanceMatrix(Vector<Vector<Integer>> pageVectors) {
-		
+	public DistanceMatrix(Distance metric) {
+		this.metric = metric;
+	}
+	
+	public DistanceMatrix generate(Vector<Vector<Integer>> pageVectors) {
 		distances = new Double[pageVectors.size()][pageVectors.size()];
 		
 		for(int i=0; i<pageVectors.size(); i++) {
 			for(int j=0; j<pageVectors.size(); j++) {
 				if(distances[j][i] == null) {
-					distances[i][j] = DistanceMetric.findPathDistance(pageVectors.get(i), pageVectors.get(j));
+					distances[i][j] = metric.calculate(pageVectors.get(i), pageVectors.get(j));
 				} else {
 					distances[i][j] = distances[j][i];
 				}
 			}
 		}
+		
+		return this;
 	}
 	
 	@Override
@@ -37,6 +46,9 @@ public class DistanceMatrix {
 			for(Double cellValue: row) {
 				if(cellValue.isInfinite()) {
 					builder.append("1");
+					builder.append("\t\t");
+				} else if(cellValue.isNaN()) { 
+					builder.append("0");
 					builder.append("\t\t");
 				} else if(cellValue == 0.0d) {
 					builder.append(cellValue);
@@ -53,13 +65,14 @@ public class DistanceMatrix {
 
 	public static void main(String[] args) {
 		
-		//String vectorsPath = "../data/page_ids/zach_output/apache-access.vectors";
-		String vectorsPath = "../data/page_ids/breian_output/ex110904.vectors";
+		String inputPath = "../data/page_ids/dan_output/larger-access.vectors";
+		String outputPath = "../data/distance_matrices/larger-access.distances";
 		
 		Vector<Vector<Integer>> vectors = new Vector<Vector<Integer>>();
 		
 		try{
-			Scanner in = new Scanner(new FileReader(vectorsPath));
+			Scanner in = new Scanner(new FileReader(inputPath));
+			PrintWriter out = new PrintWriter(new FileWriter(outputPath));
 			
 			int i = 0;
 			while(in.hasNextLine()) {
@@ -74,11 +87,15 @@ public class DistanceMatrix {
 				
 				vectors.add(intRow);
 			}
-		} catch(FileNotFoundException e) {
-			System.out.println("Vector file " + vectorsPath + " not found.");
+			
+			DistanceMatrix matrix = new DistanceMatrix(new LevenshteinDistance()).generate(vectors);
+			out.println(matrix);
+			
+			out.close();
+			
+		} catch(IOException e) {
+			System.out.println("File not found.");
 		}
 		
-		DistanceMatrix matrix = new DistanceMatrix(vectors);
-		System.out.println(matrix);
 	}
 }
