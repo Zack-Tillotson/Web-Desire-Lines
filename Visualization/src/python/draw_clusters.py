@@ -2,7 +2,7 @@ from PIL import Image,ImageDraw
 import random
 from math import sqrt
 
-def scaledown(distances,rate=0.01):
+def scaledown(distances,rate=0.001):
   """
   Scales n dimensional data down to a plane representation and outputs result.
   """
@@ -15,6 +15,8 @@ def scaledown(distances,rate=0.01):
   loc=[[random.random(),random.random()] for i in range(n)]
   fakedist=[[0.0 for j in range(n)] for i in range(n)]
   
+  term_val = 0
+
   lasterror=None
   for m in range(0,1000):
     # Find projected distances
@@ -45,6 +47,9 @@ def scaledown(distances,rate=0.01):
     # If the answer got worse by moving the points, we are done
     if lasterror and lasterror<totalerror: break
     lasterror=totalerror
+
+    term_val += 1
+    if term_val > 100: break
     
     # Move each of the points by the learning rate times the gradient
     for k in range(n):
@@ -53,7 +58,7 @@ def scaledown(distances,rate=0.01):
 
   return loc
 
-def draw2d(data,labels,jpeg='data_2d.jpg'):
+def draw2d(data,labels,png='data_2d.jpg'):
   """
   Displays 2 dimensional data.
   """
@@ -71,13 +76,13 @@ def draw2d(data,labels,jpeg='data_2d.jpg'):
   print "y: [" + str(miny) + "," + str(maxy) + "]"
 
 
-  x_size = int(maxx-minx)
-  y_size = int(maxy-miny)
+  x_size = int(maxx-minx)*5
+  y_size = int(maxy-miny)*5
 
-  img=Image.new('RGB',(2*x_size,2*y_size),(255,255,255))
+  img=Image.new('RGB',(10*x_size,10*y_size),(255,255,255))
   draw=ImageDraw.Draw(img)
   for i in range(len(data)):
-    x=((data[i][0]-avgx)*10 + x_size/2)
-    y=((data[i][1]-avgy)*10 + y_size/2)
+    x=((data[i][0]-avgx)*100 + x_size/2)
+    y=((data[i][1]-avgy)*100 + y_size/2)
     draw.text((x,y),labels[i],(0,0,0))
-  img.save(jpeg,'JPEG')
+  img.save(png,'PNG')

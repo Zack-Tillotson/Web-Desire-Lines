@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Vector;
 
-import ExtractLogs.DistanceMetric;
+//import ExtractLogs.DistanceMetric;
 
 public class DistanceMatrix {
 	
