@@ -24,16 +24,29 @@ public class DistanceMatrix {
 	
 	public DistanceMatrix generate(Vector<Vector<Integer>> pageVectors) {
 		distances = new Double[pageVectors.size()][pageVectors.size()];
+		Double maxDist = 0.0;
+		Double dist;
 		
+		//store all the distances
 		for(int i=0; i<pageVectors.size(); i++) {
 			for(int j=0; j<pageVectors.size(); j++) {
-				if(distances[j][i] == null) {
-					distances[i][j] = metric.calculate(pageVectors.get(i), pageVectors.get(j));
-				} else {
-					distances[i][j] = distances[j][i];
+				if(i > j) {
+					dist = metric.calculate(pageVectors.get(i), pageVectors.get(j));
+					if(dist > maxDist) maxDist = dist;
+					distances[i][j] = dist;
 				}
 			}
 		}
+		
+		//scale down all the distances to values between 0 and 1
+		for(int i=0; i<pageVectors.size(); i++) {
+			for(int j=0; j<pageVectors.size(); j++) {
+				if(i > j) {
+					distances[i][j] = distances[i][j]/maxDist;
+				}
+			}
+		}
+		
 		
 		return this;
 	}
@@ -41,24 +54,28 @@ public class DistanceMatrix {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
+		boolean newline;
 		
-		for(Double[] row: distances) {
-			for(Double cellValue: row) {
-				if(cellValue.isInfinite()) {
-					builder.append("1");
-					builder.append("\t\t");
-				} else if(cellValue.isNaN()) { 
-					builder.append("0");
-					builder.append("\t\t");
-				} else if(cellValue == 0.0d) {
-					builder.append(cellValue);
-					builder.append("\t\t");
-				} else {
-					builder.append(new BigDecimal(cellValue).setScale(10, RoundingMode.HALF_EVEN));
-					builder.append("\t");
+		for(int i=0; i<distances.length; i++) {
+			Double[] row = distances[i];
+			newline = false;
+			for(int j=0; j<distances.length; j++) {
+				Double cellValue = row[j];
+				if(cellValue != null) {
+					if(cellValue.isInfinite()) {
+						builder.append("1");
+					} else if(cellValue.isNaN()) { 
+						builder.append("0");
+					} else if(cellValue == 0.0d) {
+						builder.append(cellValue);
+					} else {
+						builder.append(new BigDecimal(cellValue).setScale(10, RoundingMode.HALF_EVEN));
+					}
+					if(row[j+1] != null) builder.append("\t");
+					if(i < distances.length -1) newline = true;
 				}
 			}
-			builder.append("\n");
+			if(newline) builder.append("\n");
 		}
 		return builder.toString();
 	}
@@ -89,6 +106,7 @@ public class DistanceMatrix {
 			}
 			
 			DistanceMatrix matrix = new DistanceMatrix(new LevenshteinDistance()).generate(vectors);
+			out.println(vectors.size()-1);
 			out.println(matrix);
 			
 			out.close();
