@@ -18,4 +18,4 @@ for line in file_reader:
 
 plane_points = draw_clusters.scaledown(distances)
 
-draw_clusters.draw2d(plane_points,labels,jpeg='../../../data/visualizations/md_scaled_clusters.jpg')
+draw_clusters.draw2d(plane_points,labels,png='../../../data/visualizations/md_scaled_clusters.png')

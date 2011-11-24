@@ -26,7 +26,8 @@ public class LevenshteinDistance implements Distance {
 				resultDistance = n;
 			}
 			//transform the distance to [0,1]
-			return resultDistance;
+
+			return (double)resultDistance + 0.01;
 		}
 		
 		int p[] = new int[n+1]; //'previous' cost array, horizontally
@@ -64,10 +65,8 @@ public class LevenshteinDistance implements Distance {
 		// our last action in the above loop was to switch d and p, so p now 
 		// actually has the most recent cost counts
 		resultDistance = p[n];
-		
-		
-		//transform the distance to [0,1]
-		return resultDistance;
+
+		return (double)resultDistance + 0.01;
 	}
 
 }
