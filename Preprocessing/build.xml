@@ -1,0 +1,27 @@
+<project>
+
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="bin"/>
+        <javac srcdir="src" destdir="bin"/>
+    </target>
+    
+    <target name="jar" depends="compile">
+        <jar jarfile="bin/Preprocessing.jar" includes="*.class" basedir="bin/edu/mines/mcs/DesireLinesFall11">
+            <manifest>
+                <attribute name="Main-Class" value="edu.mines.mcs.DesireLinesFall11.AccessLog"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+        </jar>
+    </target>
+    
+    <target name="run" depends="jar">
+        <java jar="bin/Preprocessing.jar" fork="true"/>
+    </target>
+    
+</project>
+
+

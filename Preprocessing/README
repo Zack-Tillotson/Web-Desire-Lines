@@ -1,0 +1,20 @@
+Preprocess Web Access Logs
+
+Dependencies:
+
+apache ant: http://ant.apache.org/
+
+
+Use:
+
+To clear bin directory:
+ant clean
+
+To generate jar file in bin directory:
+ant jar
+
+
+Files:
+
+src/python/apache_filter.py: filters access log entries out of original log files
+src/java: java preprocessing source code
