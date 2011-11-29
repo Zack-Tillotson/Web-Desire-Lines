@@ -82,8 +82,9 @@ public class DistanceMatrix {
 
 	public static void main(String[] args) {
 		
-		String inputPath = "../data/page_ids/dan_output/larger-access.vectors";
-		String outputPath = "../data/distance_matrices/larger-access.distances";
+		System.out.println(System.getProperty("user.dir"));
+		String inputPath = "/u/au/ac/ztillots/code/Web-Desire-Lines/data/page_ids/dan_output/summitcove-access.good-size.vectors";
+		String outputPath = "/u/au/ac/ztillots/code/Web-Desire-Lines/data/page_ids/dan_output/summitcove-access.good-size.distances";
 		
 		Vector<Vector<Integer>> vectors = new Vector<Vector<Integer>>();
 		
