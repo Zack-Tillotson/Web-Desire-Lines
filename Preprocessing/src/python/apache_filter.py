@@ -2,8 +2,8 @@ from csv import reader, writer
 from collections import OrderedDict
 import re
 
-file_reader = reader(open('Dan Apache Logs/site.com_log'), delimiter=' ')
-file_writer = writer(open('site_log_filtered', 'w'), delimiter=' ')
+file_reader = reader(open('../../../data/apache_logs/summitcove-access.log'), delimiter=' ')
+file_writer = writer(open('../../../data/apache_logs/summitcove-access.final.log', 'w'), delimiter=' ')
 
 month_map = {
 	'Jan':"01",
@@ -20,7 +20,7 @@ month_map = {
 	'Dec':"12"
 	}
 
-def exract_params(line):
+def extract_params(line):
 	row = OrderedDict()
 	row['client_ip'] = line[0]
 
@@ -54,8 +54,8 @@ def search_for_substrings(data, search_strings):
             return True
     return False
 
-non_content_file_extensions = re.compile(r"\.(js|css|jpg|jpeg|gif|png|ico)$", re.IGNORECASE)
-excluded_paths = re.compile(r"^/(wp-admin|admin|owners/admin|i/|xml)")
+non_content_file_extensions = re.compile(r"\.(js|css|jpg|jpeg|gif|png|ico|xml)$", re.IGNORECASE)
+excluded_paths = re.compile(r"^/(admin|owners/admin|i/|feed|screensaver|ssp|agentlogin|confirmation|icontact|robots|site-map|wp-)")
 
 filter_chain = [
 	#non-content filter
@@ -123,7 +123,7 @@ filter_chain = [
 try:
 	i = 0
 	for line in file_reader:
-		row = exract_params(line)
+		row = extract_params(line)
 
 		exclude = False
 		for filter in filter_chain:

@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Vector;
 
-//import ExtractLogs.DistanceMetric;
+import ExtractLogs.DistanceMetric;
 
 public class DistanceMatrix {
 	
@@ -82,8 +82,8 @@ public class DistanceMatrix {
 
 	public static void main(String[] args) {
 		
-		String inputPath = "../data/page_ids/dan_output/larger-access.vectors";
-		String outputPath = "../data/distance_matrices/larger-access.distances";
+		String inputPath = "../data/page_ids/dan_output/summitcove-access.final.good-size.vectors";
+		String outputPath = "../data/distance_matrices/summitcove-access.final.good-size.breian.distances";
 		
 		Vector<Vector<Integer>> vectors = new Vector<Vector<Integer>>();
 		
@@ -105,7 +105,7 @@ public class DistanceMatrix {
 				vectors.add(intRow);
 			}
 			
-			DistanceMatrix matrix = new DistanceMatrix(new LevenshteinDistance()).generate(vectors);
+			DistanceMatrix matrix = new DistanceMatrix(new PathDistanceAdapter()).generate(vectors);
 			out.println(vectors.size()-1);
 			out.println(matrix);
 			
